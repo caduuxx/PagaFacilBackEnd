@@ -36,4 +36,52 @@ public class Boleto {
         this.data_pagamento = data.data_pagamento();
     }
 
+    public Long getId() {
+        return this.id;
+    }
+    public void setId(Long setId) {
+        this.id = setId;
+    }
+
+    public Date getData_pagamento() {
+        return this.data_pagamento;
+    }
+    public void setData_pagamento(Long setDataPagamento) {
+        this.id = setDataPagamento;
+    }
+
+    public String getNfboleto() {
+        return this.nfboleto;
+    }
+    public void setNfboleto(Long setNfBoleto) {
+        this.id = setNfBoleto;
+    }
+
+    public String getValor_boleto() {
+        return this.valor_boleto;
+    }
+    public void setValor_boleto(Long setValorBoleto) {
+        this.id = setValorBoleto;
+    }
+
+    public Date getVencimento_boleto() {
+        return this.vencimento_boleto;
+    }
+    public void setVencimento_boleto(Long setVencimentoBoleto) {
+        this.id = setVencimentoBoleto;
+    }
+
+    public Date getData_emissao_boleto() {
+        return this.data_emissao_boleto;
+    }
+    public void setData_emissao_boleto(Long setDataEmissaoBoleto) {
+        this.id = setDataEmissaoBoleto;
+    }
+
+    public int getCnpj_emissor() {
+        return this.cnpj_emissor;
+    }
+    public void setCnpj_emissor(Long setCnpjEmissor) {
+        this.id = setCnpjEmissor;
+    }
 }

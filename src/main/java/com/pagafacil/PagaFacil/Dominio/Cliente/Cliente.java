@@ -35,4 +35,35 @@ public class Cliente {
 
     }
 
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getCpf() {
+        return this.cpf;
+    }
+
+    public String getCnpj() {
+        return this.cnpj;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public String getSenha() {
+        return this.senha;
+    }
+
+    public String getTelefone() {
+        return this.telefone;
+    }
+
+    public String getEndereco() {
+        return this.endereco;
+    }
+
+    public String getNomeSocial() {
+        return this.nomeSocial;
+    }
 }
