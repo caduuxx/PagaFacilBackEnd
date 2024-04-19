@@ -1,7 +1,9 @@
 package com.pagafacil.PagaFacil.Dominio.Boleto;
 
-import java.util.Date;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Date;
+@RequestMapping("boleto")
 public record BoletoResponseDTO(Long id, String nfboleto, String valor_boleto,
                                 Date vencimento_boleto, Date data_emissao_boleto,
                                 int cnpj_emissor, Date data_pagamento) {

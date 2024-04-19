@@ -28,5 +28,17 @@ public class Pagamento {
 
     public Pagamento(ClienteRequestDTO data) {
     }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getFormaDePagamento() {
+        return this.FormaDePagamento;
+    }
+
+    public Double getValorPagamento() {
+        return this.ValorPagamento;
+    }
 }
 
