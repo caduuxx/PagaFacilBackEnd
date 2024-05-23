@@ -12,6 +12,11 @@ import java.util.List;
 @RequestMapping("cliente")
 public class ClienteController {
 
+    //public String FalaSeDeuCerto(){
+      // String deucerto = "Deu Certo";
+      // return deucerto;
+    //}
+
     @PostMapping
     public void salvarCliente(@RequestBody ClienteRequestDTO data){
         Cliente clienteData = new Cliente(data);
