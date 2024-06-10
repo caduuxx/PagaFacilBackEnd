@@ -1,16 +1,14 @@
 package com.pagafacil.PagaFacil.Dominio.Pedido;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 
 @Table(name = "tb_pedido")
 @Entity(name = "tb_pedido")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")

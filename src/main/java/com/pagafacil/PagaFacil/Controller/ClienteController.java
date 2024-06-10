@@ -1,32 +1,52 @@
 package com.pagafacil.PagaFacil.Controller;
 
+import com.pagafacil.PagaFacil.Dominio.Boleto.Boleto;
 import com.pagafacil.PagaFacil.Dominio.Cliente.Cliente;
 import com.pagafacil.PagaFacil.Dominio.Cliente.ClienteRepository;
 import com.pagafacil.PagaFacil.Dominio.Cliente.ClienteRequestDTO;
 import com.pagafacil.PagaFacil.Dominio.Cliente.ClienteResposeDTO;
+import com.pagafacil.PagaFacil.Services.BoletoService;
+import com.pagafacil.PagaFacil.Services.ClienteService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("cliente")
+@RequestMapping("/cliente")
 public class ClienteController {
 
-    //public String FalaSeDeuCerto(){
-      // String deucerto = "Deu Certo";
-      // return deucerto;
-    //}
+    @Autowired
+    private ClienteService clienteService;
+
+    //localhost:8080/cliente/1 (ou o numero do id)
+    @GetMapping("/{id}")
+    public ResponseEntity<Cliente> findById(@PathVariable Long id){
+        Cliente obj = this.clienteService.findById(id);
+        return ResponseEntity.ok().body(obj);
+
+    }
 
     @PostMapping
-    public void salvarCliente(@RequestBody ClienteRequestDTO data){
-        Cliente clienteData = new Cliente(data);
-        repository.save(clienteData);
-        return;
+    public ResponseEntity<Void> create(Cliente obj){
+        this.clienteService.create(obj);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).build();
     }
-    private ClienteRepository repository;
-    @GetMapping
-    public List<ClienteResposeDTO> getAll(){
-       List<ClienteResposeDTO> puxarDadosClientes = repository.findAll().stream().map(ClienteResposeDTO::new).toList();
-       return puxarDadosClientes;
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> update(@RequestBody Cliente obj,@PathVariable Long id) {
+        obj.setId(id);
+        this.clienteService.update(obj);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        this.clienteService.detele(id);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -2,14 +2,12 @@ package com.pagafacil.PagaFacil.Dominio.Pagamento;
 
 import com.pagafacil.PagaFacil.Dominio.Cliente.ClienteRequestDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Table(name = "tb_pagamento")
 @Entity(name = "tb_pagamento")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
