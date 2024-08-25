@@ -20,7 +20,7 @@ public class Cliente {
     private String nomeSocial;
     private String email;
     private String senha;
-    private String telefone;
+    private int telefone;
     private String endereco;
 
     public Cliente(ClienteRequestDTO data){

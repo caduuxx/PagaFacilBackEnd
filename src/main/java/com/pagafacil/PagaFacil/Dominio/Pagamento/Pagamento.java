@@ -1,5 +1,6 @@
 package com.pagafacil.PagaFacil.Dominio.Pagamento;
 
+import com.pagafacil.PagaFacil.Dominio.Cliente.Cliente;
 import com.pagafacil.PagaFacil.Dominio.Cliente.ClienteRequestDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,11 @@ public class Pagamento {
     private Long id;
     private String FormaDePagamento;
     private Double ValorPagamento;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
+
 
     public Pagamento(PagamentoRequestDTO data){
         this.id = data.id();

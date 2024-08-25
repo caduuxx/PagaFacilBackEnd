@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -21,8 +24,8 @@ public class Boleto {
     private Long id;
     private String nfboleto;
     private String valor_boleto;
-    private Date vencimento_boleto;
-    private Date data_emissao_boleto;
+    private LocalDate vencimento_boleto;
+    private LocalDateTime data_emissao_boleto;
     private int cnpj_emissor;
     private Date data_pagamento;
 
@@ -36,4 +39,21 @@ public class Boleto {
         this.data_pagamento = data.data_pagamento();
     }
 
+    public void setNfboleto(String nfboleto) {
+    }
+
+    public void setValor_boleto(String s) {
+    }
+
+    public void setVencimento_boleto(LocalDate date) {
+    }
+
+    public void setData_emissao_boleto(LocalDateTime date) {
+    }
+
+    public void setCnpj_emissor(int i) {
+    }
+
+    public void setData_pagamento(Date date) {
+    }
 }
