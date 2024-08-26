@@ -35,4 +35,24 @@ public class Cliente {
 
     }
 
+    public void setCpf(String cpf) {
+    }
+
+    public void setCnpj(String cnpj) {
+    }
+
+    public void setNomeSocial(String s) {
+    }
+
+    public void setEmail(String email) {
+    }
+
+    public void setSenha(String senha) {
+    }
+
+    public void setTelefone(int telefone) {
+    }
+
+    public void setEndereco(String endereco) {
+    }
 }

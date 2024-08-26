@@ -18,11 +18,10 @@ import java.util.List;
 @RequestMapping("boleto")
 public class BoletoController {
 
-    //CRUD
-
     @Autowired
     private BoletoRepositorty repository; // Injeção de dependência
 
+    //CRUD
     @PostMapping("/cadastrar")
     public void cadastrarBoleto(@RequestBody BoletoRequestDTO data) {
             Boleto boleto = new Boleto(data);
@@ -51,6 +50,7 @@ public class BoletoController {
         repository.deleteById(id);
     }
 
+    // METODOS ADICIONAIS
     @PostMapping("/somar")
     public BoletoResponseDTO somarBoletos(@RequestBody List<Long> ids) {
         if (ids.size() < 2) {
@@ -70,8 +70,8 @@ public class BoletoController {
         novoBoleto.setCnpj_emissor(boletos.get(0).getCnpj_emissor());
         repository.save(novoBoleto);
 
-        // Remover boletos antigos após a soma
-        repository.deleteAll(boletos);
+        // ISSO VAI DA MERDA ! TEM QUE ARRUMAR, PQ NAO PODE DELETAR OS BOLETOS SO OCUTAR DO CLIENTE
+        // repository.deleteAll(boletos);
 
         return new BoletoResponseDTO(novoBoleto);
     }
