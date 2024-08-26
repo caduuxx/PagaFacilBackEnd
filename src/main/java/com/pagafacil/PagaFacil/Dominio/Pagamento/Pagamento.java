@@ -34,5 +34,11 @@ public class Pagamento {
 
     public Pagamento(ClienteRequestDTO data) {
     }
+
+    public void setFormaDePagamento(String s) {
+    }
+
+    public void setValorPagamento(Double aDouble) {
+    }
 }
 
