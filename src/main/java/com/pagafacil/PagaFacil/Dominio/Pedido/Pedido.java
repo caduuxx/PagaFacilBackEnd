@@ -23,12 +23,27 @@ public class Pedido {
     private Date data_pedido;
     private String nome_social_emissor;
 
-    public Pedido(PedidoResposeDTO data){
+    public Pedido(PedidoRequestDTO data){
         this.id = data.id();
         this.nf_pedido = data.nf_pedido();
         this.cnpj_emissor = data.cnpj_emissor();
         this.valor_total = data.valor_total();
         this.data_pedido = data.data_pedido();
         this.nome_social_emissor = data.nome_social_emissor();
+    }
+
+    public void setNf_pedido(String s) {
+    }
+
+    public void setCnpj_emissor(int i) {
+    }
+
+    public void setValor_total(Double aDouble) {
+    }
+
+    public void setData_pedido(Date date) {
+    }
+
+    public void setNome_social_emissor(String s) {
     }
 }

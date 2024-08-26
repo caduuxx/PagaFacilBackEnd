@@ -70,7 +70,7 @@ public class BoletoController {
         novoBoleto.setCnpj_emissor(boletos.get(0).getCnpj_emissor());
         repository.save(novoBoleto);
 
-        // ISSO VAI DA MERDA ! TEM QUE ARRUMAR, PQ NAO PODE DELETAR OS BOLETOS SO OCUTAR DO CLIENTE
+        // ISSO VAI DA MERDA ! TEM QUE ARRUMAR, PQ NAO PODE DELETAR OS BOLETOS SO OCUTAR DO CLIENTE.
         // repository.deleteAll(boletos);
 
         return new BoletoResponseDTO(novoBoleto);

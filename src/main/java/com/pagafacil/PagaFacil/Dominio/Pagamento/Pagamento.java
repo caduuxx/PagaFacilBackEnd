@@ -25,13 +25,12 @@ public class Pagamento {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-
     public Pagamento(PagamentoRequestDTO data){
         this.id = data.id();
         this.ValorPagamento = data.ValorPagamento();
         this.FormaDePagamento = data.FormaDePagamento();
     }
-
+    //sets
     public Pagamento(ClienteRequestDTO data) {
     }
 
