@@ -2,6 +2,7 @@
 
 Atualizaçao para proxima Sprint <br>
  - Bug com o Flyeway na MigrationsV2(Resolver)
+ - Resolver insersoes no Postman
  - Conectar o Front com o Back 
  - Terminar Login 
  - add dependencia de autenticação
