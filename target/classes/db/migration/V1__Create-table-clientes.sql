@@ -1,31 +1,34 @@
 create table tb_cliente (
     id int NOT NULL PRIMARY key,
-    cpf varchar(25),
-    cnpj varchar(25),
-    nome_social varchar(25),
-    email varchar(20) NOT NULL,
-    senha varchar(30) NOT NULL,
+    cpf varchar(50),
+    cnpj varchar(50),
+    nome_social varchar(50),
+    email varchar(50) NOT NULL,
+    senha varchar(50) NOT NULL,
     telefone int,
-    endereco varchar(20) NOT NULL
+    endereco varchar(50) NOT NULL
     );
-    create table tb_boleto (
-    nf_boleto varchar(15) NOT NULL primary key,
-    valor_boleto decimal(9,2) NOT NULL,
-    vencimento_boleto date NOT NULL,
-    data_emissao_boleto date NOT NULL,
-    cnpj_emissor int NOT NULL,
-    data_pagamento timestamp NOT NULL
-    );
-    create table tb_pedido (
-    nf_pedido varchar(15) NOT NULL,
-    cnpj_emissor int NOT NULL,
-    valor_total decimal(9,2) NOT NULL,
-    data_pedido date NOT NULL,
-    nome_social_emissor varchar(25),
-    id_pagamento int NOT NULL
-    );
+
+   CREATE TABLE tb_boleto (
+       nf_boleto VARCHAR(50) NOT NULL PRIMARY KEY,
+       valor_boleto DECIMAL(12,2) NOT NULL,
+       vencimento_boleto DATE NOT NULL,
+       data_emissao_boleto DATE NOT NULL,
+       cnpj_emissor INT NOT NULL,
+       data_pagamento TIMESTAMP NOT NULL
+   );
+
+   CREATE TABLE tb_pedido (
+       nf_pedido VARCHAR(50) NOT NULL,
+       cnpj_emissor INT NOT NULL,
+       valor_total DECIMAL(12,2) NOT NULL,
+       data_pedido DATE NOT NULL,
+       nome_social_emissor VARCHAR(50),
+       id_pagamento INT NOT NULL
+   );
+
     create table tb_pagamento(
-    forma_pagamento varchar(15)  NOT NULL,
+    forma_pagamento varchar(50)  NOT NULL,
     id_pagamento int  NOT NULL primary key
     );
     create table tb_deposito (
