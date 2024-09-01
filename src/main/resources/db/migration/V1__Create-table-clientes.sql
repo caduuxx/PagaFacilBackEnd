@@ -1,11 +1,10 @@
 create table tb_cliente (
     id int NOT NULL PRIMARY key,
-    cpf varchar(50),
-    cnpj varchar(50),
+    cnpj varchar(50) NOT NULL,
     nome_social varchar(50),
     email varchar(50) NOT NULL,
     senha varchar(50) NOT NULL,
-    telefone int,
+    telefone int(11),
     endereco varchar(50) NOT NULL
     );
 
@@ -19,7 +18,7 @@ create table tb_cliente (
    );
 
    CREATE TABLE tb_pedido (
-       nf_pedido VARCHAR(50) NOT NULL,
+       nf_pedido VARCHAR(50) NOT NULL PRIMARY key,
        cnpj_emissor INT NOT NULL,
        valor_total DECIMAL(12,2) NOT NULL,
        data_pedido DATE NOT NULL,

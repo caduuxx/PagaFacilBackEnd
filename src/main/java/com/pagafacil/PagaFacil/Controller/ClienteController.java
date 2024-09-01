@@ -13,7 +13,8 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("cliente")
+@CrossOrigin("*")
+@RequestMapping("/cliente")
 public class ClienteController {
 
     // Injeção de dependência do ClienteRepository
