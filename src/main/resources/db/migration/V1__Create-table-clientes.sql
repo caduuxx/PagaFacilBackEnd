@@ -1,12 +1,12 @@
 create table tb_cliente (
-    id int NOT NULL PRIMARY key,
+    id int NOT NULL PRIMARY KEY,
     cnpj varchar(50) NOT NULL,
     nome_social varchar(50),
     email varchar(50) NOT NULL,
     senha varchar(50) NOT NULL,
-    telefone int(11),
+    telefone varchar(11),  -- If you want to store phone numbers as strings
     endereco varchar(50) NOT NULL
-    );
+);
 
    CREATE TABLE tb_boleto (
        nf_boleto VARCHAR(50) NOT NULL PRIMARY KEY,
