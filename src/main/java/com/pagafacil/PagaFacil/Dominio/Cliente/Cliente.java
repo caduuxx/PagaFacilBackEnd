@@ -1,19 +1,18 @@
 package com.pagafacil.PagaFacil.Dominio.Cliente;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Table(name = "tb_cliente")
 @Entity(name = "tb_cliente")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Cliente {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String cpf;
     private String cnpj;
@@ -24,7 +23,7 @@ public class Cliente {
     private String endereco;
 
     public Cliente(ClienteRequestDTO data){
-        this.id = data.id();
+//        this.id = data.id();
         this.cpf = data.cpf();
         this.cnpj = data.cnpj();
         this.nomeSocial = data.nomeSocial();
@@ -35,25 +34,5 @@ public class Cliente {
 
     }
 
-    //Sets
-    public void setCpf(String cpf) {
-    }
 
-    public void setCnpj(String cnpj) {
-    }
-
-    public void setNomeSocial(String s) {
-    }
-
-    public void setEmail(String email) {
-    }
-
-    public void setSenha(String senha) {
-    }
-
-    public void setTelefone(int telefone) {
-    }
-
-    public void setEndereco(String endereco) {
-    }
 }

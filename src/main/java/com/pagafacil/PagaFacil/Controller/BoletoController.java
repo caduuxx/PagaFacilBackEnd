@@ -5,11 +5,13 @@ import com.pagafacil.PagaFacil.Dominio.Boleto.BoletoRepositorty;
 import com.pagafacil.PagaFacil.Dominio.Boleto.BoletoRequestDTO;
 import com.pagafacil.PagaFacil.Dominio.Boleto.BoletoResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -51,6 +53,18 @@ public class BoletoController {
     }
 
     // METODOS ADICIONAIS
+
+
+    @ControllerAdvice
+    public class GlobalExceptionHandler {
+
+        @ExceptionHandler(DataIntegrityViolationException.class)
+        public ResponseEntity<String> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Ocorreu um erro de integridade de dados: " + ex.getMessage());
+        }
+    }
+
+
     @PostMapping("/somar")
     public BoletoResponseDTO somarBoletos(@RequestBody List<Long> ids) {
         if (ids.size() < 2) {
@@ -60,11 +74,11 @@ public class BoletoController {
         List<Boleto> boletos = repository.findAllById(ids);
 
         double valorTotal = boletos.stream()
-                .mapToDouble(boleto -> Double.parseDouble(boleto.getValor_boleto()))
+                .mapToDouble(boleto -> Double.parseDouble(String.valueOf(boleto.getValor_boleto())))
                 .sum();
 
         Boleto novoBoleto = new Boleto();
-        novoBoleto.setValor_boleto(String.valueOf(valorTotal));
+        novoBoleto.setValor_boleto(BigDecimal.valueOf(valorTotal));
         novoBoleto.setVencimento_boleto(LocalDate.now()); // Atualize conforme necessário
         novoBoleto.setData_emissao_boleto(LocalDateTime.now());
         novoBoleto.setCnpj_emissor(boletos.get(0).getCnpj_emissor());
@@ -80,11 +94,13 @@ public class BoletoController {
     public String obterTotalAPagar() {
         double totalAPagar = repository.findAll()
                 .stream()
-                .mapToDouble(boleto -> Double.parseDouble(boleto.getValor_boleto()))
+                .mapToDouble(boleto -> Double.parseDouble(String.valueOf(boleto.getValor_boleto())))
                 .sum();
 
         return "Total a pagar: " + totalAPagar + " R$";
     }
 
+//     BigDecimal valorBoleto = new BigDecimal(request.getValorBoleto());
+//     boleto.setValorBoleto(valorBoleto);
 
 }

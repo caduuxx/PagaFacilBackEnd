@@ -34,3 +34,4 @@ create table tb_cliente (
     create table tb_deposito (
     id_transacao int not null primary key,
     valor_deposito decimal);
+

@@ -24,7 +24,7 @@ public class ClienteController {
 
     @PostMapping("/cadastrar")
     public ResponseEntity<ClienteResposeDTO> cadastrarCliente(@RequestBody ClienteRequestDTO data) {
-        Cliente cliente = new Cliente(data);
+        Cliente cliente =  new Cliente(data);
         repository.save(cliente);
         return ResponseEntity.ok(new ClienteResposeDTO(cliente));
     }
