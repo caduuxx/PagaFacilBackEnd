@@ -23,7 +23,6 @@ public class Cliente {
     private String endereco;
 
     public Cliente(ClienteRequestDTO data){
-//        this.id = data.id();
         this.cpf = data.cpf();
         this.cnpj = data.cnpj();
         this.nomeSocial = data.nomeSocial();
