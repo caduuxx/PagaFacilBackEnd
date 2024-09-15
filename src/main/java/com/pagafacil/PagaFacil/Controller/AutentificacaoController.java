@@ -11,30 +11,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+@RestController
+@RequestMapping("/autentificacao")
 public class AutentificacaoController {
 
-    @RestController
-    @RequestMapping("autentificacao")
-    public class AuthController {
+    @Autowired
+    private ClienteRepository clienteRepository;
 
-        @Autowired
-        private ClienteRepository clienteRepository;
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestParam String username, @RequestParam String senha) {
+        Cliente cliente = clienteRepository.findByCpfOrEmail(username, username)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Usuário não encontrado ou credenciais inválidas"));
 
-        @PostMapping("/login")
-        public ResponseEntity<String> login(@RequestParam String username, @RequestParam String senha) {
-            Cliente cliente = (Cliente) clienteRepository.findByCpfOrEmail(username, username)
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Usuário não encontrado ou credenciais inválidas"));
-
-            if (!cliente.getSenha().equals(senha)) {
-                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Senha incorreta");
-            }
-
-            // Gerar token de sessão ou JWT se precisar de autenticação avançada
-            // Aqui vamos retornar apenas uma mensagem simples de sucesso por enquanto
-
-            return ResponseEntity.ok("Login bem-sucedido!");
+        if (!cliente.getSenha().equals(senha)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Senha incorreta");
         }
+
+        // Gerar token de sessão ou JWT se precisar de autenticação avançada
+        // Aqui vamos retornar apenas uma mensagem simples de sucesso por enquanto
+
+        return ResponseEntity.ok("Login bem-sucedido!");
     }
-
-
 }
