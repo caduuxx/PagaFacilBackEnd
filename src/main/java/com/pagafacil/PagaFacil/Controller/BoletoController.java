@@ -64,30 +64,27 @@ public class BoletoController {
         }
     }
 
-
     @PostMapping("/somar")
-    public BoletoResponseDTO somarBoletos(@RequestBody List<Long> ids) {
+    public ResponseEntity<BoletoResponseDTO> somarBoletos(@RequestBody List<Long> ids) {
         if (ids.size() < 2) {
             throw new IllegalArgumentException("Devem ser fornecidos pelo menos dois IDs de boletos para somar.");
         }
 
         List<Boleto> boletos = repository.findAllById(ids);
 
-        double valorTotal = boletos.stream()
-                .mapToDouble(boleto -> Double.parseDouble(String.valueOf(boleto.getValor_boleto())))
-                .sum();
+        BigDecimal valorTotal = boletos.stream()
+                .map(Boleto::getValor_boleto)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         Boleto novoBoleto = new Boleto();
-        novoBoleto.setValor_boleto(BigDecimal.valueOf(valorTotal));
-        novoBoleto.setVencimento_boleto(LocalDate.now()); // Atualize conforme necessário
+        novoBoleto.setValor_boleto(valorTotal);
+        novoBoleto.setVencimento_boleto(LocalDate.now());
         novoBoleto.setData_emissao_boleto(LocalDateTime.now());
-        novoBoleto.setCnpj_emissor(boletos.get(0).getCnpj_emissor());
+        novoBoleto.setCnpj_emissor(boletos.get(0).getCnpj_emissor()); // Defina um emissor padrão ou ajuste conforme necessário
+
         repository.save(novoBoleto);
 
-        // ISSO VAI DA MERDA ! TEM QUE ARRUMAR, PQ NAO PODE DELETAR OS BOLETOS SO OCUTAR DO CLIENTE.
-        // repository.deleteAll(boletos);
-
-        return new BoletoResponseDTO(novoBoleto);
+        return ResponseEntity.ok(new BoletoResponseDTO(novoBoleto));
     }
 
     @GetMapping("/total")
