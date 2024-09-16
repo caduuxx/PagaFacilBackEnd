@@ -4,6 +4,7 @@ import com.pagafacil.PagaFacil.Dominio.Boleto.Boleto;
 import com.pagafacil.PagaFacil.Dominio.Boleto.BoletoRepositorty;
 import com.pagafacil.PagaFacil.Dominio.Boleto.BoletoRequestDTO;
 import com.pagafacil.PagaFacil.Dominio.Boleto.BoletoResponseDTO;
+import com.pagafacil.PagaFacil.Dominio.Boleto.BoletoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -86,6 +87,15 @@ public class BoletoController {
 
         return ResponseEntity.ok(new BoletoResponseDTO(novoBoleto));
     }
+
+    @Autowired
+    private BoletoService boletoService;
+    @GetMapping("/listar")
+    public ResponseEntity<List<Boleto>> listarBoletos() {
+        List<Boleto> boletos = boletoService.listarTodos();
+        return ResponseEntity.ok(boletos);
+    }
+
 
     @GetMapping("/total")
     public String obterTotalAPagar() {
