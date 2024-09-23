@@ -4,6 +4,9 @@ import com.pagafacil.PagaFacil.Dominio.Boleto.Boleto;
 import com.pagafacil.PagaFacil.Dominio.Boleto.BoletoRepositorty;
 import com.pagafacil.PagaFacil.Dominio.Boleto.BoletoRequestDTO;
 import com.pagafacil.PagaFacil.Dominio.Boleto.BoletoResponseDTO;
+import com.pagafacil.PagaFacil.Dominio.Cliente.Cliente;
+import com.pagafacil.PagaFacil.Dominio.Cliente.ClienteRequestDTO;
+import com.pagafacil.PagaFacil.Dominio.Cliente.ClienteResposeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("boleto")
 public class BoletoController {
 
@@ -23,17 +27,20 @@ public class BoletoController {
 
     //CRUD
     @PostMapping("/cadastrar")
-    public void cadastrarBoleto(@RequestBody BoletoRequestDTO data) {
+    public ResponseEntity<BoletoResponseDTO> cadastrarBoleto(@RequestBody BoletoRequestDTO data) {
             Boleto boleto = new Boleto(data);
-            Boleto salvar = repository.save(boleto); // Usando a instância injetada para salvar
+            repository.save(boleto); // Usando a instância injetada para salvar
+         return ResponseEntity.ok(new BoletoResponseDTO(boleto));
     }
+
+
 
     @PutMapping("/atualizar/{id}")
     public ResponseEntity<BoletoResponseDTO> atualizarBoleto(@PathVariable Long id, @RequestBody BoletoRequestDTO data) {
         Boleto boletoExistente = repository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Boleto não encontrado"));
 
-        boletoExistente.setNfboleto(data.nfboleto());
+        boletoExistente.setNfboleto(data.nf_boleto());
         boletoExistente.setValor_boleto(data.valor_boleto());
         boletoExistente.setVencimento_boleto(data.vencimento_boleto());
         boletoExistente.setData_emissao_boleto(data.data_emissao_boleto());
@@ -60,11 +67,11 @@ public class BoletoController {
         List<Boleto> boletos = repository.findAllById(ids);
 
         double valorTotal = boletos.stream()
-                .mapToDouble(boleto -> Double.parseDouble(boleto.getValor_boleto()))
+                .mapToDouble(boleto -> boleto.getValor_boleto())
                 .sum();
 
         Boleto novoBoleto = new Boleto();
-        novoBoleto.setValor_boleto(String.valueOf(valorTotal));
+        novoBoleto.setValor_boleto(Double.valueOf(valorTotal));
         novoBoleto.setVencimento_boleto(LocalDate.now()); // Atualize conforme necessário
         novoBoleto.setData_emissao_boleto(LocalDateTime.now());
         novoBoleto.setCnpj_emissor(boletos.get(0).getCnpj_emissor());
@@ -80,7 +87,7 @@ public class BoletoController {
     public String obterTotalAPagar() {
         double totalAPagar = repository.findAll()
                 .stream()
-                .mapToDouble(boleto -> Double.parseDouble(boleto.getValor_boleto()))
+                .mapToDouble(boleto -> boleto.getValor_boleto())
                 .sum();
 
         return "Total a pagar: " + totalAPagar + " R$";

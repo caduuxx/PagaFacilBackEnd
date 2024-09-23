@@ -48,7 +48,6 @@ public class ClienteController {
         Cliente clienteExistente = repository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
 
-        clienteExistente.setCpf(data.cpf());
         clienteExistente.setCnpj(data.cnpj());
         clienteExistente.setNomeSocial(data.nomeSocial());
         clienteExistente.setEmail(data.email());

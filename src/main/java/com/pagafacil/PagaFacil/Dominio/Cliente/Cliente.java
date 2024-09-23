@@ -13,9 +13,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Cliente {
+
+
+
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String cpf;
     private String cnpj;
     private String nomeSocial;
     private String email;
@@ -24,8 +27,6 @@ public class Cliente {
     private String endereco;
 
     public Cliente(ClienteRequestDTO data){
-        this.id = data.id();
-        this.cpf = data.cpf();
         this.cnpj = data.cnpj();
         this.nomeSocial = data.nomeSocial();
         this.email = data.email();
@@ -36,8 +37,6 @@ public class Cliente {
     }
 
     //Sets
-    public void setCpf(String cpf) {
-    }
 
     public void setCnpj(String cnpj) {
     }
@@ -56,4 +55,6 @@ public class Cliente {
 
     public void setEndereco(String endereco) {
     }
+
+
 }

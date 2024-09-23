@@ -22,8 +22,8 @@ public class Boleto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nfboleto;
-    private String valor_boleto;
+    private String nf_boleto;
+    private Double valor_boleto;
     private LocalDate vencimento_boleto;
     private LocalDateTime data_emissao_boleto;
     private int cnpj_emissor;
@@ -31,7 +31,7 @@ public class Boleto {
 
     public Boleto(BoletoRequestDTO data) {
         this.id = data.id();
-        this.nfboleto = data.nfboleto();
+        this.nf_boleto = data.nf_boleto();
         this.valor_boleto = data.valor_boleto();
         this.vencimento_boleto = data.vencimento_boleto();
         this.data_emissao_boleto = data.data_emissao_boleto();
@@ -42,7 +42,7 @@ public class Boleto {
     public void setNfboleto(String nfboleto) {
     }
 
-    public void setValor_boleto(String s) {
+    public void setValor_boleto(Double s) {
     }
 
     public void setVencimento_boleto(LocalDate date) {
