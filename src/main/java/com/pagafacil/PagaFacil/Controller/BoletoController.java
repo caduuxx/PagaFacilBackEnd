@@ -73,7 +73,7 @@ public class BoletoController {
         Boleto novoBoleto = new Boleto();
         novoBoleto.setValor_boleto(Double.valueOf(valorTotal));
         novoBoleto.setVencimento_boleto(LocalDate.now()); // Atualize conforme necessário
-        novoBoleto.setData_emissao_boleto(LocalDateTime.now());
+        novoBoleto.setData_emissao_boleto(LocalDate.now());
         novoBoleto.setCnpj_emissor(boletos.get(0).getCnpj_emissor());
         repository.save(novoBoleto);
 

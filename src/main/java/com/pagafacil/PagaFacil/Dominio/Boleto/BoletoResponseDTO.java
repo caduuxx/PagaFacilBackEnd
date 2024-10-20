@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 public record BoletoResponseDTO(Long id, String nf_boleto, Double valor_boleto,
-                                LocalDate vencimento_boleto, LocalDateTime data_emissao_boleto,
+                                LocalDate vencimento_boleto, LocalDate data_emissao_boleto,
                                 int cnpj_emissor, Date data_pagamento) {
 
     public BoletoResponseDTO(Boleto boleto){

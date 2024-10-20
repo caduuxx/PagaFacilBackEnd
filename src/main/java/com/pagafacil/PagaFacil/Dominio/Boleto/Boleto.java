@@ -25,9 +25,12 @@ public class Boleto {
     private String nf_boleto;
     private Double valor_boleto;
     private LocalDate vencimento_boleto;
-    private LocalDateTime data_emissao_boleto;
+    private LocalDate data_emissao_boleto;
     private int cnpj_emissor;
+    private int cod_boleto;
     private Date data_pagamento;
+    private int id_pedido;
+    private int id_estado_boleto;
 
     public Boleto(BoletoRequestDTO data) {
         this.id = data.id();
@@ -37,6 +40,7 @@ public class Boleto {
         this.data_emissao_boleto = data.data_emissao_boleto();
         this.cnpj_emissor = data.cnpj_emissor();
         this.data_pagamento = data.data_pagamento();
+        this.cod_boleto = data.cod_boleto();
     }
 
     public void setNfboleto(String nfboleto) {
@@ -48,7 +52,7 @@ public class Boleto {
     public void setVencimento_boleto(LocalDate date) {
     }
 
-    public void setData_emissao_boleto(LocalDateTime date) {
+    public void setData_emissao_boleto(LocalDate date) {
     }
 
     public void setCnpj_emissor(int i) {
