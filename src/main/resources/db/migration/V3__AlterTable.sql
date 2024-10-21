@@ -1,0 +1,41 @@
+------                  CLIENTE
+---- Crie a sequência se ainda não existir
+--CREATE SEQUENCE IF NOT EXISTS tb_cliente_id_seq;
+--
+---- Defina a coluna 'id' para usar a sequência como valor padrão
+--ALTER TABLE tb_cliente
+--    ALTER COLUMN id SET DEFAULT nextval('tb_cliente_id_seq');
+--
+---- Atualize a sequência para começar do maior valor atual da coluna 'id'
+--SELECT setval('tb_cliente_id_seq', COALESCE((SELECT MAX(id)+1 FROM tb_cliente), 1), false);
+--
+--
+--
+------                   BOLETO/COREÇÃO
+--
+---- 1. Adicionando a nova coluna id_boleto como SERIAL (autoincremento)
+--ALTER TABLE tb_boleto
+--ADD COLUMN id_boleto SERIAL;
+--
+---- 2. Definindo id_boleto como a chave primária
+--ALTER TABLE tb_boleto
+--ADD CONSTRAINT pk_id_boleto PRIMARY KEY (id_boleto);
+--
+---- 3. Removendo nf_boleto como chave primária, se ainda for a primary key
+--ALTER TABLE tb_boleto
+--DROP CONSTRAINT IF EXISTS tb_boleto_pkey;
+--
+---- 4. Caso queira que nf_boleto continue sendo único
+--ALTER TABLE tb_boleto
+--ADD CONSTRAINT unique_nf_boleto UNIQUE (nf_boleto);
+--
+---- Crie a sequência se ainda não existir
+--CREATE SEQUENCE IF NOT EXISTS tb_boleto_id_seq;
+--
+---- Defina a coluna 'id' para usar a sequência como valor padrão
+--ALTER TABLE tb_boleto
+--    ALTER COLUMN id_boleto SET DEFAULT nextval('tb_boleto_id_seq');
+--
+---- Atualize a sequência para começar do maior valor atual da coluna 'id'
+--SELECT setval('tb_boleto_id_seq', COALESCE((SELECT MAX(id_boleto)+1 FROM tb_boleto), 1), false);
+--
