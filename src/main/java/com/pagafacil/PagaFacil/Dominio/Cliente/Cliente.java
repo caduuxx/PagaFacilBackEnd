@@ -3,6 +3,9 @@ package com.pagafacil.PagaFacil.Dominio.Cliente;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+import java.util.Calendar;
+
 @Table(name = "tb_cliente")
 @Entity(name = "tb_cliente")
 @Getter
@@ -33,5 +36,16 @@ public class Cliente {
 
     }
 
+    private BigDecimal saldo;
+
+    // Getter para o saldo
+    public BigDecimal getSaldo() {
+        return saldo;
+    }
+
+    // Setter para o saldo
+    public void setSaldo(BigDecimal saldo) {
+        this.saldo = saldo;
+    }
 
 }

@@ -1,6 +1,7 @@
 package com.pagafacil.PagaFacil.Dominio.Boleto;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -23,6 +24,7 @@ public class Boleto {
     private Long id;
 
     @Column(name = "nf_boleto")
+    @NotNull(message = "O campo nf_boleto é obrigatório.")
     private String nfboleto;
 
     @Column(name = "valor_boleto")
@@ -32,7 +34,7 @@ public class Boleto {
 
     private LocalDateTime data_emissao_boleto;
 
-    private long cnpj_emissor;
+    private String cnpj_emissor;
 
     private Date data_pagamento;
 

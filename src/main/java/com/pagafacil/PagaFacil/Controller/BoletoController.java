@@ -1,12 +1,8 @@
 package com.pagafacil.PagaFacil.Controller;
 
-import com.pagafacil.PagaFacil.Dominio.Boleto.Boleto;
-import com.pagafacil.PagaFacil.Dominio.Boleto.BoletoRepositorty;
-import com.pagafacil.PagaFacil.Dominio.Boleto.BoletoRequestDTO;
-import com.pagafacil.PagaFacil.Dominio.Boleto.BoletoResponseDTO;
-import com.pagafacil.PagaFacil.Dominio.Boleto.BoletoService;
+import com.pagafacil.PagaFacil.Dominio.Boleto.*;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,11 +20,11 @@ public class BoletoController {
     @Autowired
     private BoletoRepositorty repository; // Injeção de dependência
 
-    //CRUD
     @PostMapping("/cadastrar")
-    public void cadastrarBoleto(@RequestBody BoletoRequestDTO data) {
-            Boleto boleto = new Boleto(data);
-            Boleto salvar = repository.save(boleto); // Usando a instância injetada para salvar
+    public ResponseEntity<BoletoResponseDTO> cadastrarBoleto(@Valid @RequestBody BoletoRequestDTO data) {
+        Boleto boleto = new Boleto(data);
+        repository.save(boleto);
+        return ResponseEntity.ok(new BoletoResponseDTO(boleto));
     }
 
     @PutMapping("/atualizar/{id}")
@@ -44,70 +40,20 @@ public class BoletoController {
         boletoExistente.setData_pagamento(data.data_pagamento());
 
         repository.save(boletoExistente);
-
         return ResponseEntity.ok(new BoletoResponseDTO(boletoExistente));
     }
 
     @DeleteMapping("/deletar/{id}")
-    public void deletarBoleto(@PathVariable Long id) {
-        repository.deleteById(id);
+    public ResponseEntity<Void> deletarBoleto(@PathVariable Long id) {
+        Boleto boleto = repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Boleto não encontrado"));
+        repository.delete(boleto);
+        return ResponseEntity.noContent().build();
     }
 
-    // METODOS ADICIONAIS
-
-
-    @ControllerAdvice
-    public class GlobalExceptionHandler {
-
-        @ExceptionHandler(DataIntegrityViolationException.class)
-        public ResponseEntity<String> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Ocorreu um erro de integridade de dados: " + ex.getMessage());
-        }
-    }
-
-    @PostMapping("/somar")
-    public ResponseEntity<BoletoResponseDTO> somarBoletos(@RequestBody List<Long> ids) {
-        if (ids.size() < 2) {
-            throw new IllegalArgumentException("Devem ser fornecidos pelo menos dois IDs de boletos para somar.");
-        }
-
-        List<Boleto> boletos = repository.findAllById(ids);
-
-        BigDecimal valorTotal = boletos.stream()
-                .map(Boleto::getValor_boleto)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-
-        Boleto novoBoleto = new Boleto();
-        novoBoleto.setValor_boleto(valorTotal);
-        novoBoleto.setVencimento_boleto(LocalDate.now());
-        novoBoleto.setData_emissao_boleto(LocalDateTime.now());
-        novoBoleto.setCnpj_emissor(boletos.get(0).getCnpj_emissor()); // Defina um emissor padrão ou ajuste conforme necessário
-
-        repository.save(novoBoleto);
-
-        return ResponseEntity.ok(new BoletoResponseDTO(novoBoleto));
-    }
-
-    @Autowired
-    private BoletoService boletoService;
     @GetMapping("/listar")
-    public ResponseEntity<List<Boleto>> listarBoletos() {
-        List<Boleto> boletos = boletoService.listarTodos();
+    public ResponseEntity<List<BoletoResponseDTO>> listarBoletos() {
+        List<BoletoResponseDTO> boletos = repository.findAll().stream().map(BoletoResponseDTO::new).toList();
         return ResponseEntity.ok(boletos);
     }
-
-
-    @GetMapping("/total")
-    public String obterTotalAPagar() {
-        double totalAPagar = repository.findAll()
-                .stream()
-                .mapToDouble(boleto -> Double.parseDouble(String.valueOf(boleto.getValor_boleto())))
-                .sum();
-
-        return "Total a pagar: " + totalAPagar + " R$";
-    }
-
-//     BigDecimal valorBoleto = new BigDecimal(request.getValorBoleto());
-//     boleto.setValorBoleto(valorBoleto);
-
 }
