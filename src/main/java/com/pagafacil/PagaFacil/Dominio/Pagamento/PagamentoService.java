@@ -1,5 +1,7 @@
 package com.pagafacil.PagaFacil.Dominio.Pagamento;
 
+import com.pagafacil.PagaFacil.Dominio.Boleto.Boleto;
+import com.pagafacil.PagaFacil.Dominio.Boleto.BoletoRepositorty;
 import com.pagafacil.PagaFacil.Dominio.Cliente.Cliente;
 import com.pagafacil.PagaFacil.Dominio.Cliente.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,41 +19,26 @@ public class PagamentoService {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    @Transactional
-    public Pagamento cadastrarPagamento(PagamentoRequestDTO data) {
+    @Autowired
+    private BoletoRepositorty boletoRepository;
 
-        // Busca o cliente pelo ID informado no request DTO
-        Cliente cliente = clienteRepository.findById(data.clienteId())
-                .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado"));
-
-        // Cria uma nova instância de Pagamento, associando o cliente
-        Pagamento pagamento = new Pagamento(data, cliente);
-
-        if (pagamento.getId() == null || pagamento.getCliente().getId() == null) {
-            throw new IllegalArgumentException("O ID do boleto e do cliente não podem ser nulos.");
+    public Pagamento cadastrarPagamento(Pagamento pagamentoDTO) {
+        if (pagamentoDTO.getCliente() == null || pagamentoDTO.getBoleto() == null) {
+            throw new IllegalArgumentException("ClienteId e BoletoId não podem ser nulos.");
         }
 
-        // Salva o pagamento no banco de dados
-        Pagamento pagamentoSalvo = pagamentoRepository.save(pagamento);
+        Cliente cliente = clienteRepository.findById(pagamentoDTO.getCliente().getId())
+                .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado."));
 
-        // Atualiza o saldo do cliente somente após a confirmação do pagamento salvo
-        cliente.setSaldo(cliente.getSaldo().add(data.valorPagamento()));
-        clienteRepository.save(cliente);
+        Boleto boleto = boletoRepository.findById(pagamentoDTO.getBoleto().getId())
+                .orElseThrow(() -> new IllegalArgumentException("Boleto não encontrado."));
 
-        return pagamentoSalvo;
-    }
+        Pagamento pagamento = new Pagamento();
+        pagamento.setCliente(cliente);
+        pagamento.setBoleto(boleto);
+        pagamento.setValor(pagamentoDTO.getValor());
+        pagamento.setDataPagamento(pagamentoDTO.getDataPagamento());
 
-
-    public List<Pagamento> listarPagamentos() {
-        return pagamentoRepository.findAll();
-    }
-
-    public Pagamento buscarPagamentoPorId(Long id) {
-        return pagamentoRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Pagamento não encontrado"));
-    }
-
-    public void deletarPagamento(Long id) {
-        pagamentoRepository.deleteById(id);
+        return pagamentoRepository.save(pagamento);
     }
 }
