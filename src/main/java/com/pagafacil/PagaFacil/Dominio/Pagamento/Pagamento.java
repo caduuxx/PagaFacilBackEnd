@@ -5,6 +5,8 @@ import com.pagafacil.PagaFacil.Dominio.Cliente.ClienteRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 
 @Table(name = "tb_pagamento")
 @Entity(name = "tb_pagamento")
@@ -20,7 +22,7 @@ public class Pagamento {
     private Long id;
 
     private String formaDePagamento;
-    private Double valorPagamento;
+    private BigDecimal valorPagamento;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
@@ -28,9 +30,9 @@ public class Pagamento {
 
     // Construtor utilizando um DTO (PagamentoRequestDTO)
     public Pagamento(PagamentoRequestDTO data, Cliente cliente) {
-        this.id = data.id();
-        this.valorPagamento = data.ValorPagamento();
-        this.formaDePagamento = data.FormaDePagamento();
+        this.id = data.clienteId();
+        this.valorPagamento = data.valorPagamento();
+        this.formaDePagamento = data.formaDePagamento();
         this.cliente = cliente;
     }
 }

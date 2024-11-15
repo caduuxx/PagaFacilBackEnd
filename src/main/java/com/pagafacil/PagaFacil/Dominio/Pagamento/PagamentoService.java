@@ -17,34 +17,34 @@ public class PagamentoService {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    public Pagamento cadastrarPagamento(Pagamento pagamento) {
-        return pagamentoRepository.save(pagamento);
-    }
-
     @Transactional
     public Pagamento cadastrarPagamento(PagamentoRequestDTO data) {
-        // Verifica se o ID do cliente está presente
-        assert data.getClienteId() != null;
 
-        // Busca o cliente pelo ID
-        Cliente cliente = clienteRepository.findById(data.getClienteId())
+        // Busca o cliente pelo ID informado no request DTO
+        Cliente cliente = clienteRepository.findById(data.clienteId())
                 .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado"));
 
-        // Cria o objeto Pagamento associando o cliente
+        // Cria uma nova instância de Pagamento, associando o cliente
         Pagamento pagamento = new Pagamento(data, cliente);
 
-        // Atualiza o saldo do cliente
-        cliente.setSaldo(cliente.getSaldo().add(data.getValorPagamento()));
+        if (pagamento.getId() == null || pagamento.getCliente().getId() == null) {
+            throw new IllegalArgumentException("O ID do boleto e do cliente não podem ser nulos.");
+        }
 
-        // Salva o pagamento no repositório
-        return pagamentoRepository.save(pagamento);
+        // Salva o pagamento no banco de dados
+        Pagamento pagamentoSalvo = pagamentoRepository.save(pagamento);
+
+        // Atualiza o saldo do cliente somente após a confirmação do pagamento salvo
+        cliente.setSaldo(cliente.getSaldo().add(data.valorPagamento()));
+        clienteRepository.save(cliente);
+
+        return pagamentoSalvo;
     }
 
 
-    public List<Pagamento> listarDepositos() {
-        return pagamentoRepository.findAll(); // Retorna todos os pagamentos do repositório
+    public List<Pagamento> listarPagamentos() {
+        return pagamentoRepository.findAll();
     }
-
 
     public Pagamento buscarPagamentoPorId(Long id) {
         return pagamentoRepository.findById(id)

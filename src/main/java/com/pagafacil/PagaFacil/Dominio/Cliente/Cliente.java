@@ -16,7 +16,7 @@ import java.util.Calendar;
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; @Column (name = "cliente_id")
     private String cpf;
     private String cnpj;
     private String nomeSocial;

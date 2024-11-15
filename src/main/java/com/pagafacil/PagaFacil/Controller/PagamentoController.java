@@ -12,45 +12,36 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("pagamento")
+@RequestMapping("/pagamento")
 public class PagamentoController {
 
     @Autowired
-    private PagamentoService pagamentoService;  // Corrigido para injeção de dependência do serviço
-
-    // CRUD
+    private PagamentoService pagamentoService;
 
     @PostMapping("/cadastrar")
     public ResponseEntity<PagamentoResponseDTO> cadastrarPagamento(@RequestBody PagamentoRequestDTO data) {
-        // Chama o serviço para cadastrar o pagamento, passando o DTO de solicitação
         Pagamento pagamento = pagamentoService.cadastrarPagamento(data);
-        return ResponseEntity.ok(new PagamentoResponseDTO(pagamento)); // Retorna o DTO com os dados do pagamento
+        return ResponseEntity.ok(new PagamentoResponseDTO(pagamento));
     }
 
-
     @GetMapping("/listar")
-    public ResponseEntity<List<PagamentoResponseDTO>> listarDepositos() {
-        // O método listarDepositos deve chamar o serviço e retornar a lista
-        List<Pagamento> pagamentos = pagamentoService.listarDepositos();
+    public ResponseEntity<List<PagamentoResponseDTO>> listarPagamentos() {
+        List<Pagamento> pagamentos = pagamentoService.listarPagamentos();
         List<PagamentoResponseDTO> response = pagamentos.stream()
                 .map(PagamentoResponseDTO::new)
                 .collect(Collectors.toList());
-        return ResponseEntity.ok(response); // Retorna a lista de pagamentos como DTOs
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PagamentoResponseDTO> buscarDepositoPorId(@PathVariable Long id) {
-        // Aqui buscamos o pagamento pelo ID com o serviço
+    public ResponseEntity<PagamentoResponseDTO> buscarPagamentoPorId(@PathVariable Long id) {
         Pagamento pagamento = pagamentoService.buscarPagamentoPorId(id);
-        return ResponseEntity.ok(new PagamentoResponseDTO(pagamento)); // Retorna o DTO com os dados do pagamento
+        return ResponseEntity.ok(new PagamentoResponseDTO(pagamento));
     }
 
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity<Void> deletarDeposito(@PathVariable Long id) {
-        // Aqui o serviço é chamado para deletar o pagamento
+    public ResponseEntity<Void> deletarPagamento(@PathVariable Long id) {
         pagamentoService.deletarPagamento(id);
-        return ResponseEntity.noContent().build(); // Resposta com status 204 (sem conteúdo)
+        return ResponseEntity.noContent().build();
     }
-
-    // Métodos adicionais podem ser implementados aqui, conforme a necessidade
 }
