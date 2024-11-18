@@ -13,8 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@CrossOrigin("*")
-@RequestMapping("/cliente")
+@RequestMapping("cliente")
 public class ClienteController {
 
     // Injeção de dependência do ClienteRepository
@@ -25,7 +24,7 @@ public class ClienteController {
 
     @PostMapping("/cadastrar")
     public ResponseEntity<ClienteResposeDTO> cadastrarCliente(@RequestBody ClienteRequestDTO data) {
-        Cliente cliente = new Cliente(data);
+        Cliente cliente =  new Cliente(data);
         repository.save(cliente);
         return ResponseEntity.ok(new ClienteResposeDTO(cliente));
     }
@@ -48,6 +47,7 @@ public class ClienteController {
         Cliente clienteExistente = repository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
 
+        clienteExistente.setCpf(data.cpf());
         clienteExistente.setCnpj(data.cnpj());
         clienteExistente.setNomeSocial(data.nomeSocial());
         clienteExistente.setEmail(data.email());
@@ -71,4 +71,7 @@ public class ClienteController {
     }
 
     // Metodos Adicinais faltando
+
+
+
 }

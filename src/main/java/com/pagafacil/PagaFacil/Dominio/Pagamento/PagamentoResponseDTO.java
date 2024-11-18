@@ -1,10 +1,10 @@
 package com.pagafacil.PagaFacil.Dominio.Pagamento;
 
-public record PagamentoResponseDTO(Long id,String FormaDePagamento,Double ValorPagamento) {
+import java.math.BigDecimal;
 
-    public PagamentoResponseDTO(Pagamento pagamento){
+public record PagamentoResponseDTO(Long id, String formaDePagamento, BigDecimal valorPagamento) {
+
+    public PagamentoResponseDTO(Pagamento pagamento) {
         this(pagamento.getId(), pagamento.getFormaDePagamento(), pagamento.getValorPagamento());
-
     }
-
 }

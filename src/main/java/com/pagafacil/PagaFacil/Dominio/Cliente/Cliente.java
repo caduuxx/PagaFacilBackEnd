@@ -1,24 +1,23 @@
 package com.pagafacil.PagaFacil.Dominio.Cliente;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.math.BigDecimal;
+import java.util.Calendar;
 
 @Table(name = "tb_cliente")
 @Entity(name = "tb_cliente")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Cliente {
-
-
-
-
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String cpf;
     private String cnpj;
     private String nomeSocial;
     private String email;
@@ -27,6 +26,7 @@ public class Cliente {
     private String endereco;
 
     public Cliente(ClienteRequestDTO data){
+        this.cpf = data.cpf();
         this.cnpj = data.cnpj();
         this.nomeSocial = data.nomeSocial();
         this.email = data.email();
@@ -36,25 +36,16 @@ public class Cliente {
 
     }
 
-    //Sets
+    private BigDecimal saldo;
 
-    public void setCnpj(String cnpj) {
+    // Getter para o saldo
+    public BigDecimal getSaldo() {
+        return saldo;
     }
 
-    public void setNomeSocial(String s) {
+    // Setter para o saldo
+    public void setSaldo(BigDecimal saldo) {
+        this.saldo = saldo;
     }
-
-    public void setEmail(String email) {
-    }
-
-    public void setSenha(String senha) {
-    }
-
-    public void setTelefone(int telefone) {
-    }
-
-    public void setEndereco(String endereco) {
-    }
-
 
 }
