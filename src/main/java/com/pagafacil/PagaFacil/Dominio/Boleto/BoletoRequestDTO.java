@@ -10,7 +10,7 @@ public record BoletoRequestDTO(
         String nfboleto,
         BigDecimal valor_boleto,
         LocalDate vencimento_boleto,
-        LocalDateTime data_emissao_boleto,
+        LocalDate data_emissao_boleto,
         String cnpj_emissor,
         Date data_pagamento
 ) {

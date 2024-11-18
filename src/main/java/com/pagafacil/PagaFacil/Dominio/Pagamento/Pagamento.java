@@ -1,3 +1,4 @@
+
 package com.pagafacil.PagaFacil.Dominio.Pagamento;
 
 import com.pagafacil.PagaFacil.Dominio.Boleto.Boleto;

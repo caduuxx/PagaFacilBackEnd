@@ -1,3 +1,4 @@
+
 package com.pagafacil.PagaFacil.Dominio.Pagamento;
 
 import java.math.BigDecimal;

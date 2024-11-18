@@ -32,7 +32,7 @@ public class Boleto {
 
     private LocalDate vencimento_boleto;
 
-    private LocalDateTime data_emissao_boleto;
+    private LocalDate data_emissao_boleto;
 
     private String cnpj_emissor;
 
