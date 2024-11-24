@@ -5,6 +5,7 @@ import com.pagafacil.PagaFacil.Dominio.Boleto.BoletoRepositorty;
 import com.pagafacil.PagaFacil.Dominio.Cliente.Cliente;
 import com.pagafacil.PagaFacil.Dominio.Cliente.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,13 +25,16 @@ public class PagamentoService {
 
     public Pagamento cadastrarPagamento(Pagamento pagamentoDTO) {
         if (pagamentoDTO.getCliente() == null || pagamentoDTO.getBoleto() == null) {
-            throw new IllegalArgumentException("ClienteId e BoletoId não podem ser nulos.");
+            throw new IllegalArgumentException("Cliente e Boleto não podem ser nulos.");
         }
 
-        Cliente cliente = clienteRepository.findById(pagamentoDTO.getCliente().getId())
+        Long clienteId = pagamentoDTO.getCliente().getId();
+        Long boletoId = pagamentoDTO.getBoleto().getId();
+
+        Cliente cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado."));
 
-        Boleto boleto = boletoRepository.findById(pagamentoDTO.getBoleto().getId())
+        Boleto boleto = boletoRepository.findById(boletoId)
                 .orElseThrow(() -> new IllegalArgumentException("Boleto não encontrado."));
 
         Pagamento pagamento = new Pagamento();
@@ -42,3 +46,4 @@ public class PagamentoService {
         return pagamentoRepository.save(pagamento);
     }
 }
+

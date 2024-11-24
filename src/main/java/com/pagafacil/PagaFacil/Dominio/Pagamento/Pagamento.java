@@ -22,7 +22,9 @@ public class Pagamento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "forma_de_pagamento", nullable = false)
     private String formaDePagamento;
+
     private BigDecimal valorPagamento;
 
     @ManyToOne
@@ -32,9 +34,11 @@ public class Pagamento {
     @ManyToOne
     @JoinColumn(name = "boleto_id", nullable = false)
     private Boleto boleto;
-    private Double valor;
-    private LocalDate dataPagamento;
 
+    private Double valor;
+
+    @Column(name = "data_pagamento")
+    private LocalDate dataPagamento;
 
 
     // Construtor utilizando um DTO (PagamentoRequestDTO)

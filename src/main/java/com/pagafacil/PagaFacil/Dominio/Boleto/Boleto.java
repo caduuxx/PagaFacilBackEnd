@@ -21,6 +21,7 @@ import java.util.Scanner;
 public class Boleto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_boleto") // Nome correto da coluna no banco
     private Long id;
 
     @Column(name = "nf_boleto")
