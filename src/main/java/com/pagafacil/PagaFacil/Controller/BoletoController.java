@@ -8,17 +8,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
 @RequestMapping("boleto")
 public class BoletoController {
 
+    private final BoletoRepositorty repository;
+    private final BoletoService service;
+
+    // Construtor para injeção de dependências
     @Autowired
-    private BoletoRepositorty repository; // Injeção de dependência
+    public BoletoController(BoletoRepositorty repository, BoletoService service) {
+        this.repository = repository;
+        this.service = service;
+    }
 
     @PostMapping("/cadastrar")
     public ResponseEntity<BoletoResponseDTO> cadastrarBoleto(@Valid @RequestBody BoletoRequestDTO data) {
@@ -52,8 +56,8 @@ public class BoletoController {
     }
 
     @GetMapping("/listar")
-    public ResponseEntity<List<BoletoResponseDTO>> listarBoletos() {
-        List<BoletoResponseDTO> boletos = repository.findAll().stream().map(BoletoResponseDTO::new).toList();
+    public ResponseEntity<List<Boleto>> listarBoletos() {
+        List<Boleto> boletos = service.listarTodos();
         return ResponseEntity.ok(boletos);
     }
 }
