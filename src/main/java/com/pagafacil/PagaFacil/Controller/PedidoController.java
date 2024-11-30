@@ -1,10 +1,10 @@
 package com.pagafacil.PagaFacil.Controller;
 
 
-import com.pagafacil.PagaFacil.Dominio.Pedido.Pedido;
-import com.pagafacil.PagaFacil.Dominio.Pedido.PedidoRepository;
-import com.pagafacil.PagaFacil.Dominio.Pedido.PedidoRequestDTO;
-import com.pagafacil.PagaFacil.Dominio.Pedido.PedidoResposeDTO;
+import com.pagafacil.PagaFacil.Dominio.Boleto.Boleto;
+import com.pagafacil.PagaFacil.Dominio.Boleto.BoletoRepositorty;
+import com.pagafacil.PagaFacil.Dominio.Boleto.BoletoService;
+import com.pagafacil.PagaFacil.Dominio.Pedido.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +16,15 @@ import java.util.List;
 @RestController
 @RequestMapping("pedido")
 public class PedidoController {
-    @Autowired
-    private PedidoRepository repository;
+    private final PedidoRepository repository;
+    private final PedidoService service;
 
+    // Construtor para injeção de dependências
+    @Autowired
+    public PedidoController(PedidoRepository repository, PedidoService service) {
+        this.repository = repository;
+        this.service = service;
+    }
 
     @PostMapping("/cadastrar")
     public ResponseEntity<PedidoResposeDTO> cadastrarPedido(@RequestBody PedidoRequestDTO data) {
@@ -58,10 +64,13 @@ public class PedidoController {
         return ResponseEntity.noContent().build();
     }
 
+//    @GetMapping("/listar")
+//    public List<PedidoResposeDTO> listarPedidos() {
+//        return repository.findAll().stream().map(PedidoResposeDTO::new).toList();
+//    }
     @GetMapping("/listar")
-    public List<PedidoResposeDTO> listarPedidos() {
-        return repository.findAll().stream().map(PedidoResposeDTO::new).toList();
+    public ResponseEntity<List<Pedido>> listarPedidos() {
+        List<Pedido> pedidos = service.listarTodos();
+        return ResponseEntity.ok(pedidos);
     }
-
-
 }

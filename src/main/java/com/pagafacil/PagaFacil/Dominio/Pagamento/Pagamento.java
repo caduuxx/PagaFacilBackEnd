@@ -1,8 +1,6 @@
 
 package com.pagafacil.PagaFacil.Dominio.Pagamento;
 
-import com.pagafacil.PagaFacil.Dominio.Boleto.Boleto;
-import com.pagafacil.PagaFacil.Dominio.Cliente.Cliente;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,31 +21,30 @@ public class Pagamento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String formaDePagamento;
-    private BigDecimal valorPagamento;
+    private String forma_de_pagamento;
+    private BigDecimal valor_pagamento;
+    private Long cod_cliente;
+//    @ManyToOne
+//    @JoinColumn(name = "cliente_id", nullable = false)
+//    private Cliente cliente;
 
-    @ManyToOne
-    @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
-
-    @ManyToOne
-    @JoinColumn(name = "boleto_id", nullable = false)
-    private Boleto boleto;
+//    @ManyToOne
+//    @JoinColumn(name = "id", nullable = false)
+//    private Boleto boleto;
+    private Long cod_boleto;
     private Double valor;
-    private LocalDate dataPagamento;
+    private LocalDate data_pagamento;
 
 
 
     // Construtor utilizando um DTO (PagamentoRequestDTO)
-    public Pagamento(PagamentoRequestDTO data, Cliente cliente) {
-        this.id = data.clienteId();
-        this.valorPagamento = data.valorPagamento();
-        this.formaDePagamento = data.formaDePagamento();
-        this.cliente = cliente;
+    public Pagamento(PagamentoRequestDTO data) {
+        this.valor_pagamento = data.valor_pagamento();
+        this.forma_de_pagamento = data.forma_de_pagamento();
+        this.cod_cliente = data.cod_cliente();
+        this.cod_boleto = data.cod_boleto();
         this.valor = data.valor();
-        this.dataPagamento = data.dataPagamento();
+        this.data_pagamento = data.data_pagamento();
     }
 
 }
-
-
