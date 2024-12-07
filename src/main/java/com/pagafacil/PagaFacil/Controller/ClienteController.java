@@ -35,6 +35,8 @@ public class ClienteController {
         return ResponseEntity.ok(clientes);
     }
 
+
+
     @GetMapping("/buscar/{id}")
     public ResponseEntity<ClienteResposeDTO> buscarClientePorId(@PathVariable Long id) {
         Cliente cliente = repository.findById(id)
@@ -69,8 +71,6 @@ public class ClienteController {
 
         return ResponseEntity.noContent().build();
     }
-
-    // Metodos Adicinais faltando
 
 
 

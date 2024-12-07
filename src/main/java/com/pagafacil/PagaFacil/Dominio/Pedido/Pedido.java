@@ -22,6 +22,7 @@ public class Pedido {
     private Double valor_total;
     private Date data_pedido;
     private String nome_social_emissor;
+    private Long cnpj_cliente;
 
     public Pedido(PedidoRequestDTO data){
         this.id = data.id();
@@ -30,6 +31,8 @@ public class Pedido {
         this.valor_total = data.valor_total();
         this.data_pedido = data.data_pedido();
         this.nome_social_emissor = data.nome_social_emissor();
+        this.cnpj_cliente = data.cnpj_cliente();
+
     }
 
     public void setNf_pedido(String s) {

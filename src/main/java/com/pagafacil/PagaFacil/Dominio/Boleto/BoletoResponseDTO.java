@@ -12,7 +12,9 @@ public record BoletoResponseDTO(
         LocalDate vencimento_boleto,
         LocalDate data_emissao_boleto,
         String cnpj_emissor,
-        Date data_pagamento
+        Date data_pagamento,
+        Long cnpj_cliente,
+        Long pago
 ) {
     public BoletoResponseDTO(Boleto boleto) {
         this(
@@ -22,7 +24,9 @@ public record BoletoResponseDTO(
                 boleto.getVencimento_boleto(),
                 boleto.getData_emissao_boleto(),
                 boleto.getCnpj_emissor(),
-                boleto.getData_pagamento()
+                boleto.getData_pagamento(),
+                boleto.getCnpj_cliente(),
+                boleto.getPago()
         );
     }
 }

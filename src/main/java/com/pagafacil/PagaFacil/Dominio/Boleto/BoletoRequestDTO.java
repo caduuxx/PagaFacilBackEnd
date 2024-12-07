@@ -12,7 +12,9 @@ public record BoletoRequestDTO(
         LocalDate vencimento_boleto,
         LocalDate data_emissao_boleto,
         String cnpj_emissor,
-        Date data_pagamento
+        Date data_pagamento,
+        Long cnpj_cliente,
+        Long pago
 ) {
 
 }

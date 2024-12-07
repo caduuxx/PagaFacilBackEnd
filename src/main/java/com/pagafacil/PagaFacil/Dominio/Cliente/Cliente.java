@@ -39,13 +39,13 @@ public class Cliente {
     private BigDecimal saldo;
 
     // Getter para o saldo
-    public BigDecimal getSaldo() {
-        return saldo;
-    }
+//    public BigDecimal getSaldo() {
+//        return saldo;
+//    }
 
     // Setter para o saldo
-    public void setSaldo(BigDecimal saldo) {
-        this.saldo = saldo;
-    }
+//    public void setSaldo(BigDecimal saldo) {
+//        this.saldo = saldo;
+//    }
 
 }

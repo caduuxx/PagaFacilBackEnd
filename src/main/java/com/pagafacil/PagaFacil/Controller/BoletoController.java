@@ -42,6 +42,9 @@ public class BoletoController {
         boletoExistente.setData_emissao_boleto(data.data_emissao_boleto());
         boletoExistente.setCnpj_emissor(data.cnpj_emissor());
         boletoExistente.setData_pagamento(data.data_pagamento());
+        boletoExistente.setCnpj_cliente(data.cnpj_cliente());
+        boletoExistente.setPago(data.pago());
+
 
         repository.save(boletoExistente);
         return ResponseEntity.ok(new BoletoResponseDTO(boletoExistente));

@@ -38,6 +38,10 @@ public class Boleto {
 
     private Date data_pagamento;
 
+    private Long cnpj_cliente;
+
+    private Long pago;
+
     public Boleto(BoletoRequestDTO data) {
         this.id = data.id();
         this.nfboleto = data.nfboleto();
@@ -46,6 +50,8 @@ public class Boleto {
         this.data_emissao_boleto = data.data_emissao_boleto();
         this.cnpj_emissor = data.cnpj_emissor();
         this.data_pagamento = data.data_pagamento();
+        this.cnpj_cliente = data.cnpj_cliente();
+        this.pago = data.pago();
     }
 
 

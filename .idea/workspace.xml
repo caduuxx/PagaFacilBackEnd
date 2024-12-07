@@ -4,7 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b4b4b2c6-57dd-4b42-86d3-e3cea11993e1" name="Changes" comment="Listar Pedido funcionando" />
+    <list default="true" id="b4b4b2c6-57dd-4b42-86d3-e3cea11993e1" name="Changes" comment="Teste com tudo">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/pagafacil/PagaFacil/Dominio/Cliente/ClienteService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pagafacil/PagaFacil/Controller/BoletoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pagafacil/PagaFacil/Controller/BoletoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pagafacil/PagaFacil/Controller/ClienteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pagafacil/PagaFacil/Controller/ClienteController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pagafacil/PagaFacil/Dominio/Boleto/Boleto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pagafacil/PagaFacil/Dominio/Boleto/Boleto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pagafacil/PagaFacil/Dominio/Boleto/BoletoRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pagafacil/PagaFacil/Dominio/Boleto/BoletoRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pagafacil/PagaFacil/Dominio/Boleto/BoletoResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pagafacil/PagaFacil/Dominio/Boleto/BoletoResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pagafacil/PagaFacil/Dominio/Cliente/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pagafacil/PagaFacil/Dominio/Cliente/Cliente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pagafacil/PagaFacil/Dominio/Pedido/Pedido.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pagafacil/PagaFacil/Dominio/Pedido/Pedido.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pagafacil/PagaFacil/Dominio/Pedido/PedidoRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pagafacil/PagaFacil/Dominio/Pedido/PedidoRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pagafacil/PagaFacil/Dominio/Pedido/PedidoResposeDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pagafacil/PagaFacil/Dominio/Pedido/PedidoResposeDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pagafacil/PagaFacil/Controller/ClienteController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pagafacil/PagaFacil/Controller/ClienteController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/pagafacil/PagaFacil/Dominio/Cliente/Cliente.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/pagafacil/PagaFacil/Dominio/Cliente/Cliente.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
