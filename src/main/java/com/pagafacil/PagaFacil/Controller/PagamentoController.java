@@ -31,13 +31,10 @@ public class PagamentoController {
         Pagamento pagamentoSalvo = repository.save(pagamento);
         return ResponseEntity.ok(new PagamentoResponseDTO(pagamentoSalvo));
     }
+
+    @GetMapping("/listar")
+    public ResponseEntity<List<Pagamento>> listarBoletos() {
+        List<Pagamento> pagamentos = service.listarTodos();
+        return ResponseEntity.ok(pagamentos);
+    }
 }
-//    @PostMapping("/cadastrar")
-//    public ResponseEntity<?> cadastrarPagamento(@RequestBody Pagamento pagamentoDTO) {
-//        try {
-//            Pagamento pagamento = pagamentoService.cadastrarPagamento(pagamentoDTO);
-//            return ResponseEntity.ok(pagamento);
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-//        }
-//    }
