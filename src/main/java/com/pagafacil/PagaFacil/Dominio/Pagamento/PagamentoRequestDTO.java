@@ -1,4 +1,18 @@
 package com.pagafacil.PagaFacil.Dominio.Pagamento;
 
-public record PagamentoRequestDTO(Long id,String FormaDePagamento,Double ValorPagamento) {
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+
+public record PagamentoRequestDTO(
+        Long clienteId,
+        String formaDePagamento,
+        BigDecimal valorPagamento,
+        Long boletoId,
+        Double valor,
+        LocalDate dataPagamento
+
+
+) {
 }
